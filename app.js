@@ -11,7 +11,10 @@ var bodyParser = require("body-parser");
 var app = express();
 
 // The only required route is for the calls to the mongopop API
-var pop = require("./routes/pop");
+
+//ORIGINAL
+//var pop = require("./routes/pop");
+var shindigs = require("./routes/shindigs");
 
 // Makes the generated html easier to read
 app.locals.pretty = true;
@@ -38,7 +41,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Define a single route; to be used to provide the Mongopop Restfull
 // API
-app.use("/pop", pop);
+
+//ORIGINAL
+//app.use("/pop", pop);
+app.use("/shindigs", shindigs);
 
 // For any other routes, set the status to 404 and forward to error handler
 app.use(function (req, res, next) {
