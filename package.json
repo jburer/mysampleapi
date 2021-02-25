@@ -1,32 +1,25 @@
 {
-  "//": "client-side dependencies are specified in `public/package.jsom`).",
-  "name": "mongopop",
-  "description": "Adds and manipulates data with MongoDB Atlas or other MongoDB databases",
-  "author": "Andrew Morgan andrew.morgan@mongodb.com",
-  "version": "0.1.0",
-  "private": false,
+  "name": "mysampleapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/am-MongoDB/MongoDB-Mongopop"
+    "url": "git+https://github.com/jburer/mysampleapi.git"
   },
-  "scripts": {
-    "start": "node ./bin/www",
-    "debug": "cd public && npm run tsc && cd .. && node-debug ./bin/www",
-    "tsc": "cd public && npm run tsc",
-    "tsc:w": "cd public && npm run tsc:w",
-    "express": "node ./bin/www",
-    "express-debug": "node-debug ./bin/www",
-    "postinstall": "cd public && npm install"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jburer/mysampleapi/issues"
   },
+  "homepage": "https://github.com/jburer/mysampleapi#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "external-ip": "^2.3.1",
-    "mongodb": "^3.6.4",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7",
-    "pug": "^3.0.0",
-    "request": "^2.88.2",
-    "serve-favicon": "^2.5.0"
+    "mongodb": "^3.6.4"
   }
 }
