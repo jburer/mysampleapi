@@ -149,7 +149,7 @@ app.put("/shindigs/:id&:shindig", (request, response) => {
   console.log(request.params.id);
   console.log(request.params.shindig);
   collection.replaceOne(
-    { _id: request.params.id },
+    { _id: ObjectId(request.params.id) },
     JSON.parse(request.params.shindig),
     (error, result) => {
       if (error) {
