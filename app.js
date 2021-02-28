@@ -24,77 +24,106 @@ app.use((request, response, next) => {
 app.listen(config.expressPort, () => {
   MongoClient.connect(
     config.client.mongodb.defaultUri,
-    { useNewUrlParser: true },
+    { useNewUrlParser: true, useUnifiedTopology: true },
     (error, client) => {
       if (error) {
+        console.log(
+          "Connection to " +
+            config.client.mongodb.defaultDatabase +
+            " failed: " +
+            error
+        );
         throw error;
+      } else {
+        database = client.db(config.client.mongodb.defaultDatabase);
+        collection = database.collection(
+          config.client.mongodb.defaultCollection
+        );
+        console.log(
+          "Connection to " +
+            config.client.mongodb.defaultDatabase +
+            " successful!"
+        );
       }
-      database = client.db(config.client.mongodb.defaultDatabase);
-      collection = database.collection(config.client.mongodb.defaultCollection);
-      console.log(
-        "Connected to `" + config.client.mongodb.defaultDatabase + "`!"
-      );
     }
   );
 });
 
 // GET with Pagination Functionality
-app.get("/shindigs", (request, response) => {
-  //console.log(request);
+app.route("/shindigs").get((request, response) => {
   let page = request.query._page;
   let limit = request.query._limit;
-  console.log(page);
-  console.log(limit);
-  //collection.find({}).toArray((error, result) => {
+
   collection
     .find({})
     .skip(parseInt(page) * parseInt(limit))
     .limit(parseInt(limit))
     .toArray((error, result) => {
       if (error) {
-        console.log(error);
+        console.log("GET '/shindigs' failed: " + error);
         return response.status(500).send(error);
+      } else {
+        console.log("GET '/shindigs' successful!");
+        response.send(result);
       }
-      response.send(result);
-      //console.log(response);
     });
 });
 
-// GET Count Functionality
-app.get("/shindigs/count", (request, response) => {
-  collection.countDocuments({}).then(
-    function (count) {
-      response.send({ count });
-    },
-    function (err) {
-      console.log("countDocuments failed: " + err.message);
-      response.status(500).send(err.message);
-    }
-  );
-});
-
 // GET by ID Functionality
-app.get("/shindigs/:id", (request, response) => {
+app.route("/shindigs/id/:id").get((request, response) => {
   collection.findOne(
     { _id: new ObjectId(request.params.id) },
     (error, result) => {
       if (error) {
-        console.log(error);
+        console.log("GET '/shindigs/id' failed: " + error);
         return response.status(500).send(error);
+      } else {
+        console.log("GET '/shindigs/id' successful!");
+        response.send(result);
       }
-      response.send(result);
-      console.log(result);
     }
   );
 });
+
+// GET Count Functionality
+app.route("/shindigs/count").get((request, response) => {
+  collection.countDocuments({}).then(
+    function (count) {
+      console.log("GET '/shindigs/count' successful: " + count);
+      response.send({ count });
+    },
+    function (error) {
+      console.log("GET '/shindigs/count' failed: " + error.message);
+      response.status(500).send(error.message);
+    }
+  );
+});
+
+/*
+// GET Count Functionality
+app.get("/shindigs/count", (request, response) => {
+  collection.countDocuments({}, (error, result) => {
+    if (error) {
+      console.log("Cannot GET '/shindigs/count': " + error.message);
+      response.status(500).send(error.message);
+    } else {
+      console.log({ result });
+      response.send({ result });
+    }
+  });
+});
+*/
 
 //POST Functionality
 app.post("/shindigs", (request, response) => {
   collection.insertOne(request.body, (error, result) => {
     if (error) {
+      console.log("POST '/shindigs' failed: " + error);
       return response.status(500).send(error);
+    } else {
+      console.log("POST '/shindigs' successful!");
+      response.send(result.result);
     }
-    response.send(result.result);
   });
 });
 
@@ -104,11 +133,12 @@ app.delete("/shindigs/:id", (request, response) => {
     { _id: new ObjectId(request.params.id) },
     (error, result) => {
       if (error) {
-        console.log(error);
+        console.log("DELETE '/shindigs/id' failed: " + error);
         return response.status(500).send(error);
+      } else {
+        console.log("DELETE '/shindigs/id' successful!");
+        response.send(result);
       }
-      response.send(result);
-      console.log(result);
     }
   );
 });
@@ -116,17 +146,19 @@ app.delete("/shindigs/:id", (request, response) => {
 // PUT by ID Functionality
 app.put("/shindigs/:id&:shindig", (request, response) => {
   console.log(request.params);
-  console.log(JSON.parse(request.params.shindig));
+  console.log(request.params.id);
+  console.log(request.params.shindig);
   collection.replaceOne(
     { _id: request.params.id },
     JSON.parse(request.params.shindig),
     (error, result) => {
       if (error) {
-        console.log(error);
+        console.log("PUT '/shindigs/id' failed: " + error);
         return response.status(500).send(error);
+      } else {
+        console.log("PUT '/shindigs/id' successful!");
+        response.send(result);
       }
-      response.send(result);
-      console.log(result);
     }
   );
 });
