@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  mysimpleapi:
+   build: .
+   ports:
+    - "3100:3100"
