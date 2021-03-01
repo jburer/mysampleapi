@@ -2,7 +2,7 @@ var config = {
   expressPort: 3100,
   client: {
     mongodb: {
-      defaultDatabase: "mysampledb",
+      defaultDatabase: "mysimpledb",
       defaultCollection: "shindigs",
       defaultUri: "mongodb://localhost:27017"
     }

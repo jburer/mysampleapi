@@ -7,7 +7,9 @@ const config = require("./config.js");
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-var database, collection;
+var urlString = config.client.mongodb.defaultUri;
+var databaseString = config.client.mongodb.defaultDatabase;
+var collectionString = config.client.mongodb.defaultCollection;
 
 // Add Access Control Allow Origin headers
 app.use((request, response, next) => {
@@ -23,142 +25,115 @@ app.use((request, response, next) => {
 // Connect to DB
 app.listen(config.expressPort, () => {
   MongoClient.connect(
-    config.client.mongodb.defaultUri,
+    urlString,
     { useNewUrlParser: true, useUnifiedTopology: true },
     (error, client) => {
       if (error) {
-        console.log(
-          "Connection to " +
-            config.client.mongodb.defaultDatabase +
-            " failed: " +
-            error
-        );
+        console.log("Connection to " + databaseString + " failed: " + error);
         throw error;
       } else {
-        database = client.db(config.client.mongodb.defaultDatabase);
-        collection = database.collection(
-          config.client.mongodb.defaultCollection
-        );
-        console.log(
-          "Connection to " +
-            config.client.mongodb.defaultDatabase +
-            " successful!"
-        );
+        database = client.db(databaseString);
+        collection = database.collection(collectionString);
+        console.log("Connection to " + databaseString + " successful!");
       }
     }
   );
 });
 
-// GET with Pagination Functionality
-app.route("/shindigs").get((request, response) => {
-  let page = request.query._page;
-  let limit = request.query._limit;
+// GET with Pagination
+app.route("/" + collectionString).get((request, response) => {
+  let page = parseInt(request.query._page);
+  let limit = parseInt(request.query._limit);
+  let skip = page * limit;
 
   collection
     .find({})
-    .skip(parseInt(page) * parseInt(limit))
-    .limit(parseInt(limit))
+    .skip(skip)
+    .limit(limit)
     .toArray((error, result) => {
       if (error) {
-        console.log("GET '/shindigs' failed: " + error);
+        console.log("GET '/" + collectionString + "' failed: " + error);
         return response.status(500).send(error);
       } else {
-        console.log("GET '/shindigs' successful!");
+        console.log("GET '/" + collectionString + "' successful!");
         response.send(result);
       }
     });
 });
 
-// GET by ID Functionality
-app.route("/shindigs/id/:id").get((request, response) => {
-  collection.findOne(
-    { _id: new ObjectId(request.params.id) },
-    (error, result) => {
-      if (error) {
-        console.log("GET '/shindigs/id' failed: " + error);
-        return response.status(500).send(error);
-      } else {
-        console.log("GET '/shindigs/id' successful!");
-        response.send(result);
-      }
-    }
-  );
-});
+// GET by ID
+app.route("/" + collectionString + "/id/:id").get((request, response) => {
+  let idInt = parseInt(request.params.id);
 
-// GET Count Functionality
-app.route("/shindigs/count").get((request, response) => {
-  collection.countDocuments({}).then(
-    function (count) {
-      console.log("GET '/shindigs/count' successful: " + count);
-      response.send({ count });
-    },
-    function (error) {
-      console.log("GET '/shindigs/count' failed: " + error.message);
-      response.status(500).send(error.message);
-    }
-  );
-});
-
-/*
-// GET Count Functionality
-app.get("/shindigs/count", (request, response) => {
-  collection.countDocuments({}, (error, result) => {
+  collection.findOne({ id: idInt }, (error, result) => {
     if (error) {
-      console.log("Cannot GET '/shindigs/count': " + error.message);
-      response.status(500).send(error.message);
+      console.log("GET '/" + collectionString + "' failed: " + error);
+      return response.status(500).send(error);
     } else {
-      console.log({ result });
-      response.send({ result });
+      console.log("GET '/" + collectionString + "/id' successful!");
+      response.send(result);
     }
   });
 });
-*/
 
-//POST Functionality
-app.post("/shindigs", (request, response) => {
+// GET Count
+app.route("/" + collectionString + "/count").get((request, response) => {
+  collection.countDocuments({}).then(
+    function (count) {
+      console.log("GET '/" + collectionString + "/count' successful: " + count);
+      response.send({ count });
+    },
+    function (error) {
+      console.log(
+        "GET '/" + collectionString + "/count' failed: " + error.message
+      );
+      response.status(500).send(error.message);
+    }
+  );
+});
+
+//POST
+app.post("/" + collectionString, (request, response) => {
+  console.log(request.body);
   collection.insertOne(request.body, (error, result) => {
     if (error) {
-      console.log("POST '/shindigs' failed: " + error);
+      console.log("POST '/" + collectionString + "' failed: " + error);
       return response.status(500).send(error);
     } else {
-      console.log("POST '/shindigs' successful!");
+      console.log("POST '/" + collectionString + "' successful!");
       response.send(result.result);
     }
   });
 });
 
-// DELETE by ID Functionality
-app.delete("/shindigs/:id", (request, response) => {
-  collection.deleteOne(
-    { _id: new ObjectId(request.params.id) },
-    (error, result) => {
-      if (error) {
-        console.log("DELETE '/shindigs/id' failed: " + error);
-        return response.status(500).send(error);
-      } else {
-        console.log("DELETE '/shindigs/id' successful!");
-        response.send(result);
-      }
+// DELETE by ID
+app.delete("/" + collectionString + "/id/:id", (request, response) => {
+  let idInt = parseInt(request.params.id);
+
+  collection.deleteOne({ id: idInt }, (error, result) => {
+    if (error) {
+      console.log("DELETE '/" + collectionString + "/id' failed: " + error);
+      return response.status(500).send(error);
+    } else {
+      console.log("DELETE '/" + collectionString + "/id' successful!");
+      response.send(result.result);
     }
-  );
+  });
 });
 
-// PUT by ID Functionality
-app.put("/shindigs/:id&:shindig", (request, response) => {
-  console.log(request.params);
-  console.log(request.params.id);
-  console.log(request.params.shindig);
-  collection.replaceOne(
-    { _id: ObjectId(request.params.id) },
-    JSON.parse(request.params.shindig),
-    (error, result) => {
-      if (error) {
-        console.log("PUT '/shindigs/id' failed: " + error);
-        return response.status(500).send(error);
-      } else {
-        console.log("PUT '/shindigs/id' successful!");
-        response.send(result);
-      }
+// PUT by ID
+app.put("/" + collectionString + "/:id&:shindig", (request, response) => {
+  let idInt = parseInt(request.params.id);
+  let shindigObject = JSON.parse(request.params.shindig);
+  delete shindigObject["_id"];
+
+  collection.update({ id: idInt }, shindigObject, (error, result) => {
+    if (error) {
+      console.log("PUT '/" + collectionString + "/id' failed: " + error);
+      return response.status(500).send(error);
+    } else {
+      console.log("PUT '/" + collectionString + "/id' successful!");
+      response.send(result);
     }
-  );
+  });
 });
