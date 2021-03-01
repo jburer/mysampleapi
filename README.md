@@ -56,11 +56,11 @@ Clone the repository and move to the `mysimpleapi` directory.
 
 <pre>
     docker build -t <i>[whatever]</i>/mysimpleapi .
-    docker run -d -p 8180:80 --name mysimpleapi <i>[whatever]</i>/mysimpleapi
+    docker run -d -p 3100:3100 --name mysimpleapi <i>[whatever]</i>/mysimpleapi
 </pre>
 
 This will make the app available on
 
 <pre>
-    http://localhost:8180
+    http://localhost:3100
 <pre>
