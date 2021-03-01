@@ -18,15 +18,16 @@ For more info on this effort check out my blog: (http://jburer.wordpress.com)
 
 ## myAPI
 
-The `mysimpledb` database is a JSON document inside MongoDB. It's loaded with data
-into the `shindigs` collection when composed from
-`./data/db.json`.
+The `mysimpleAPI` API is an Express app and makes the `GET`, `POST`, `PUT` and `DELETE` functions available.
 
-The database is exposed on port `:27017`.
+It is accompanied by a `config.js` file where the `port` is defined, establishes the
+`URI` to the DBMS, and the `database` and `collection` names.
+
+The API is exposed on port `:3100`.
 
 ## myArchitecture
 
-This is pretty straightforward DB setup that sits independently from the API and app.
+This is pretty straightforward API setup that sits independently from the app and datastore.
 
 ![mySimpleAPI](/images/mySimpleAPI.gif)
 
