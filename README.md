@@ -28,7 +28,7 @@ The database is exposed on port `:27017`.
 
 This is pretty straightforward DB setup that sits independently from the API and app.
 
-![mySimpleDB](/images/mySimpleDB.gif)
+![mySimpleAPI](/images/mySimpleAPI.gif)
 
 It is designed to be run inside a Docker container.
 
