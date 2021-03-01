@@ -16,21 +16,23 @@ As I apply security and privacy, I will branch this code and explain what's bein
 
 For more info on this effort check out my blog: (http://jburer.wordpress.com)
 
-_**PLEASE NOTE:** This is solely intended for serving as learning and education tool, and_
-_in no way represents the full responsibilities needed for a production system._
+_**PLEASE NOTE:** This is solely intended as a learning and education tool, and_
+_in no way represents the full responsibilities needed for a production system. In fact_
+_as designed it specifically omits certain "best practices" (e.g. input validation) so that_
+_they can be added later to emphasize the example._
 
 ## myAPI
 
 The `mysimpleAPI` API is an Express app and makes the `GET`, `POST`, `PUT` and `DELETE` methods available.
 
-| Path            | HTTP Mehtod | Parameters       | Response        | Purpose |
-| --------------- | ----------- | ---------------- | --------------- | ------- |
-| /shindigs       | GET         | \_page=,\_limit= | with Pagination |
-| /shindigs/id/   | GET         | [id]             |
-| /shindigs/count | GET         |                  |
-| /shindigs       | POST        |                  |
-| /shindigs/id    | DELETE      | by ID            |
-| /shindigs       | PUT         | by ID            |
+| Path            | HTTP Mehtod | Parameters           | Response | Purpose    |
+| --------------- | ----------- | -------------------- | -------- | ---------- |
+| /shindigs       | GET         | \_page=[],\_limit=[] |          | Pagination |
+| /shindigs/id/   | GET         | [id]                 |
+| /shindigs/count | GET         |                      |
+| /shindigs       | POST        | { Object }           |
+| /shindigs/id    | DELETE      | [id]                 |
+| /shindigs       | PUT         | [id], { Object }     |
 
 It is accompanied by a `config.js` file where the `port` is defined, the
 `URI` to the DBMS is established, and the target `database` and `collection` are named.
