@@ -16,12 +16,24 @@ As I apply security and privacy, I will branch this code and explain what's bein
 
 For more info on this effort check out my blog: (http://jburer.wordpress.com)
 
+_**PLEASE NOTE:** This is solely intended for serving as learning and education tool, and_
+_in no way represents the full responsibilities needed for a production system._
+
 ## myAPI
 
-The `mysimpleAPI` API is an Express app and makes the `GET`, `POST`, `PUT` and `DELETE` functions available.
+The `mysimpleAPI` API is an Express app and makes the `GET`, `POST`, `PUT` and `DELETE` methods available.
 
-It is accompanied by a `config.js` file where the `port` is defined, establishes the
-`URI` to the DBMS, and the `database` and `collection` names.
+| Path            | HTTP Mehtod | Parameters       | Response        | Purpose |
+| --------------- | ----------- | ---------------- | --------------- | ------- |
+| /shindigs       | GET         | \_page=,\_limit= | with Pagination |
+| /shindigs/id/   | GET         | [id]             |
+| /shindigs/count | GET         |                  |
+| /shindigs       | POST        |                  |
+| /shindigs/id    | DELETE      | by ID            |
+| /shindigs       | PUT         | by ID            |
+
+It is accompanied by a `config.js` file where the `port` is defined, the
+`URI` to the DBMS is established, and the target `database` and `collection` are named.
 
 The API is exposed on port `:3100`.
 
