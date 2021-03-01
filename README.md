@@ -2,6 +2,8 @@
 
 The second part of a three part app: The API.
 
+The three part app is designed to manage events, or shindigs as they are called.
+
 - _The corresponding **app** is here: (https://github.com/jburer/mysampleapp)._
 - _The corresponding **datastore** is here: (https://github.com/jburer/mysampleapi)._
 
@@ -27,12 +29,12 @@ The `mysimpleAPI` API is an Express app and makes the `GET`, `POST`, `PUT` and `
 
 | Path            | HTTP Mehtod | Parameters                           | Response                | Purpose                               |
 | --------------- | ----------- | ------------------------------------ | ----------------------- | ------------------------------------- |
-| /shindigs       | GET         | \_page=_[number]_,\_limit=_[number]_ | { JSON Object }         | Returns data with optional pagination |
-| /shindigs/id/   | GET         | [id]                                 | { JSON Object }         | Returns data matching a specific ID   |
-| /shindigs/count | GET         |                                      | { "count" : _[count]_ } |                                       |
-| /shindigs       | POST        | { JSON Object }                      |
-| /shindigs/id    | DELETE      | [id]                                 |
-| /shindigs       | PUT         | [id], { JSON Object }                |
+| /shindigs       | GET         | \_page=_[number]_,\_limit=_[number]_ | {_JSON Document_}       | Returns data with optional pagination |
+| /shindigs/id/   | GET         | _[id]_                               | {_JSON Document_}       | Returns data matching a specific ID   |
+| /shindigs/count | GET         |                                      | { "count" : _[count]_ } | Returns count of records              |
+| /shindigs       | POST        | {_JSON Document_}                    |                         | Adds a new document                   |
+| /shindigs/id    | DELETE      | _[id]_                               |                         | Deletes a specified document          |
+| /shindigs       | PUT         | _[id]_, {_JSON Document_}            |                         | Updates a specified document          |
 
 It is accompanied by a `config.js` file where the `port` is defined, the
 `URI` to the DBMS is established, and the target `database` and `collection` are named.
