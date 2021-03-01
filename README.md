@@ -2,7 +2,8 @@
 
 The second part of a three part app: The API.
 
-The three part app is designed to manage events, or shindigs as they are called.
+The three part app is designed to provide users a way to manage local events around town, or shindigs
+as I call them.
 
 - _The corresponding **app** is here: (https://github.com/jburer/mysampleapp)._
 - _The corresponding **datastore** is here: (https://github.com/jburer/mysampleapi)._
@@ -51,14 +52,15 @@ It is designed to be run inside a Docker container.
 
 ## myDockerSetup
 
-Clone the repository and move to the `mysimpledb` directory.
+Clone the repository and move to the `mysimpleapi` directory.
 
 ```
-docker-compose up -d
+docker build -t _<whatever>_/mysimpleapi .
+docker run -d -p 8180:80 --name mysimpleapi _<whatever>_/mysimpleapi
 ```
 
-This will make the datastore available at the following URI:
+This will make the app available on
 
 ```
-mongodb://localhost:27017
+http://localhost:8180
 ```
