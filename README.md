@@ -54,13 +54,9 @@ It is designed to be run inside a Docker container.
 
 Clone the repository and move to the `mysimpleapi` directory.
 
-```
-docker build -t _<whatever>_/mysimpleapi .
-docker run -d -p 8180:80 --name mysimpleapi _<whatever>_/mysimpleapi
-```
+    docker build -t _<whatever>_/mysimpleapi .
+    docker run -d -p 8180:80 --name mysimpleapi _<whatever>_/mysimpleapi
 
 This will make the app available on
 
-```
-http://localhost:8180
-```
+    http://localhost:8180
