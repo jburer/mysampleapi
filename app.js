@@ -149,7 +149,7 @@ app.put("/shindigs/:id&:shindig", (request, response) => {
   console.log(request.params.id);
   console.log(request.params.shindig);
   collection.replaceOne(
-    { _id: ObjectId(request.params.id) },
+    { id: request.params.id },
     JSON.parse(request.params.shindig),
     (error, result) => {
       if (error) {
@@ -157,6 +157,7 @@ app.put("/shindigs/:id&:shindig", (request, response) => {
         return response.status(500).send(error);
       } else {
         console.log("PUT '/shindigs/id' successful!");
+        console.log(result);
         response.send(result);
       }
     }
