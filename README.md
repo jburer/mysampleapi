@@ -1,13 +1,13 @@
 # mySimpleAPI
 
-The second part of a three part app: The API.
+The second part of my three part app: The API.
 
-This three part app is designed to provide users a way to manage local events around town, or shindigs
-as I call them. It provides CRUD capabilities to any user. It allows any user to manage the data in the
+My three part app is designed to provide users a way to manage local events around town, or shindigs
+as I call them. It provides CRUD capabilities to any user, and allows them to manage the data in the
 datastore, through the API, from the UI.
 
-- _The corresponding **app** is here: (https://github.com/jburer/mysampleapp)._
-- _The corresponding **datastore** is here: (https://github.com/jburer/mysampleapi)._
+- _The corresponding **app** is here: (https://github.com/jburer/mysimpleapp)._
+- _The corresponding **datastore** is here: (https://github.com/jburer/mysimpleapi)._
 
 ## myPurpose
 
@@ -56,9 +56,7 @@ It is designed to be run inside a Docker container.
 
 ## myDockerSetup
 
-Create the `mysimplenetwork` network.
-
-_**PLEASE NOTE:** All images in this app are pre-configured to use this network by design._
+Create the `mysimplenetwork` network. _**PLEASE NOTE:** All images in this app are pre-configured to use this network by design._
 _Creating the network first allows each image to be created independently._
 
 <pre>
@@ -68,11 +66,10 @@ _Creating the network first allows each image to be created independently._
 Clone the repository and move to the `mysimpleapi` directory.
 
 <pre>
-    docker build -t <i>[whatever]</i>/mysimpleapi .
-    docker run -d -p 3100:3100 --name mysimpleapi <i>[whatever]</i>/mysimpleapi
+    docker compose up -d --build --remove-orphans
 </pre>
 
-This will make the app available on
+This will make the API available at the following URI:
 
 <pre>
     http://localhost:3100
