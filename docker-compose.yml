@@ -5,3 +5,8 @@ services:
    build: .
    ports:
     - "3100:3100"
+
+networks:
+  default:
+    external:
+      name: mysimpledb_dev

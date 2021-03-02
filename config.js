@@ -4,7 +4,7 @@ var config = {
     mongodb: {
       defaultDatabase: "mysimpledb",
       defaultCollection: "shindigs",
-      defaultUri: "mongodb://0.0.0.0:27017"
+      defaultUri: "mongodb://mongo:27017"
     }
   }
 };
