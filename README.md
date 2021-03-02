@@ -7,7 +7,7 @@ as I call them. It provides CRUD capabilities to any user, and allows them to ma
 datastore, through the API, from the UI.
 
 - _The corresponding **app** is here: (https://github.com/jburer/mysimpleapp)._
-- _The corresponding **datastore** is here: (https://github.com/jburer/mysimpleapi)._
+- _The corresponding **datastore** is here: (https://github.com/jburer/mysimpledb)._
 
 ## myPurpose
 
