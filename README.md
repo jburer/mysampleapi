@@ -50,9 +50,9 @@ The API is exposed on port `:3100`.
 
 This is pretty straightforward API setup that sits independently from the app and datastore.
 
-![mySimpleAPI](/images/mySimpleAPI.gif)
-
 It is designed to be run inside a Docker container.
+
+![mySimpleAPI](/images/mySimpleAPI.gif)
 
 ## myDockerSetup
 
