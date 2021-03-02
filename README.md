@@ -57,7 +57,8 @@ It is designed to be run inside a Docker container.
 ## myDockerSetup
 
 Create the `mysimplenetwork` network. _**PLEASE NOTE:** All images in this app are pre-configured to use this network by design._
-_Creating the network first allows each image to be created independently._
+_Creating the network first allows each image to be created independently, although you will want to start the database first_
+_if you are going to use this configuration as this image immediately connects to the db._
 
 <pre>
     docker network create mysimplenetwork
