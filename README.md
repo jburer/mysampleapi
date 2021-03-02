@@ -62,7 +62,7 @@ Create the `mysimplenetwork` network. _All images in this app are pre-configured
 Clone the repository and move to the `mysimpleapi` directory.
 
 <pre>
-    docker build -t \textcolor{red}{<i>[whatever]</i>}/mysimpleapi .
+    docker build -t <span style="color:red"><i>[whatever]</i></span>/mysimpleapi .
     docker run -d -p 3100:3100 --name mysimpleapi <i>[whatever]</i>/mysimpleapi
 </pre>
 
