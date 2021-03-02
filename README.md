@@ -2,8 +2,9 @@
 
 The second part of a three part app: The API.
 
-The three part app is designed to provide users a way to manage local events around town, or shindigs
-as I call them.
+This three part app is designed to provide users a way to manage local events around town, or shindigs
+as I call them. It provides CRUD capabilities to any user. It allows any user to manage the data in the
+datastore, through the API, from the UI.
 
 - _The corresponding **app** is here: (https://github.com/jburer/mysampleapp)._
 - _The corresponding **datastore** is here: (https://github.com/jburer/mysampleapi)._
@@ -52,10 +53,16 @@ It is designed to be run inside a Docker container.
 
 ## myDockerSetup
 
+Create the `mysimplenetwork` network. _All images in this app are pre-configured to use this network by design._
+
+<pre>
+    docker network create mysimplenetwork
+</pre>
+
 Clone the repository and move to the `mysimpleapi` directory.
 
 <pre>
-    docker build -t <i>[whatever]</i>/mysimpleapi .
+    docker build -t \textcolor{red}{<i>[whatever]</i>}/mysimpleapi .
     docker run -d -p 3100:3100 --name mysimpleapi <i>[whatever]</i>/mysimpleapi
 </pre>
 
