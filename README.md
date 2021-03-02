@@ -22,7 +22,8 @@ For more info on this effort check out my blog: (http://jburer.wordpress.com)
 
 _**PLEASE NOTE:** This is solely intended as a learning and education tool, and_
 _in no way represents the full responsibilities needed for a production system. In fact_
-_as designed it specifically omits certain "best practices" (e.g. input validation, test scripts, etc.) so that_
+_as designed it specifically omits certain "best practices" (e.g. input validation, test scripts, logging - all_
+_those things security and privacy folks care about) so that_
 _they can be added later to demonstrate its benefit._
 
 ## myAPI
@@ -34,12 +35,14 @@ The `mysimpleAPI` API is an Express app and makes the `GET`, `POST`, `PUT` and `
 | /shindigs       | GET         | \_page=_[number]_,\_limit=_[number]_ | {_JSON Document_}       | Returns data with optional pagination |
 | /shindigs/id/   | GET         | _[id]_                               | {_JSON Document_}       | Returns data matching a specific ID   |
 | /shindigs/count | GET         |                                      | { "count" : _[count]_ } | Returns count of records              |
-| /shindigs       | POST        | {_JSON Document_}                    |                         | Adds a new document                   |
-| /shindigs/id    | DELETE      | _[id]_                               |                         | Deletes a specified document          |
+| /shindigs       | POST        | {_JSON Document_}                    | {"n":1,"ok":1}          | Adds a new document                   |
+| /shindigs/id    | DELETE      | _[id]_                               | {"n":1,"ok":1}          | Deletes a specified document          |
 | /shindigs       | PUT         | _[id]_, {_JSON Document_}            |                         | Updates a specified document          |
 
 It is accompanied by a `config.js` file where the `port` is defined, the
 `URI` to the DBMS is established, and the target `database` and `collection` are named.
+
+_**PLEASE NOTE:** The `URI` is currently set to look for the Docker hostname defined in the datastore._
 
 The API is exposed on port `:3100`.
 
@@ -53,7 +56,10 @@ It is designed to be run inside a Docker container.
 
 ## myDockerSetup
 
-Create the `mysimplenetwork` network. _All images in this app are pre-configured to use this network by design._
+Create the `mysimplenetwork` network.
+
+_**PLEASE NOTE:** All images in this app are pre-configured to use this network by design._
+_Creating the network first allows each image to be created independently._
 
 <pre>
     docker network create mysimplenetwork
@@ -62,7 +68,7 @@ Create the `mysimplenetwork` network. _All images in this app are pre-configured
 Clone the repository and move to the `mysimpleapi` directory.
 
 <pre>
-    docker build -t <span style="color:red"><i>[whatever]</i></span>/mysimpleapi .
+    docker build -t <i>[whatever]</i>/mysimpleapi .
     docker run -d -p 3100:3100 --name mysimpleapi <i>[whatever]</i>/mysimpleapi
 </pre>
 
@@ -70,4 +76,4 @@ This will make the app available on
 
 <pre>
     http://localhost:3100
-<pre>
+</pre>
