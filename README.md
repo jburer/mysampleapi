@@ -2,7 +2,7 @@
 
 The second part of my three part app: The API.
 
-- _The corresponding **app** is here: (https://github.com/jburer/mysimpleapp)._
+- _The corresponding **UI** is here: (https://github.com/jburer/mysimpleui)._
 - _The corresponding **datastore** is here: (https://github.com/jburer/mysimpledb)._
 
 ## myPurpose
@@ -12,7 +12,7 @@ as I call them. It provides CRUD capabilities to any user, and allows them to ma
 datastore, through the API, from the UI.
 
 Designed to give me a "clean" system for demonstrating Security and
-Privacy, the only principles applied to the base is that which is inherent
+Privacy principals, the only principals applied to the base is that which is inherent
 in the frameworks, software, and services that I'm using to build the system.
 
 As I work through the fundementals of Security and Privacy, I'll apply
@@ -50,7 +50,7 @@ The API is exposed on port `:3100`.
 
 ## myArchitecture
 
-This is pretty straightforward API setup that sits independently from the app and datastore.
+This is pretty straightforward API that sits independently from the UI and datastore.
 
 It is designed to be run inside a Docker container.
 
@@ -59,8 +59,9 @@ It is designed to be run inside a Docker container.
 ## myDockerSetup
 
 Create the `mysimplenetwork` network. _**PLEASE NOTE:** All images in this app are pre-configured to use this network by design._
+_Because `docker-compose.yml` expects this network, it is required to create it first before running docker compose._
 _Creating the network first allows each image to be created independently, although you will want to start the database first_
-_if you are going to use this configuration as this image immediately connects to the db._
+_before running the API as the API immediately looks for the DB._
 
 <pre>
     docker network create mysimplenetwork
