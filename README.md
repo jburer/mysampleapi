@@ -2,29 +2,31 @@
 
 The second part of my three part app: The API.
 
-My three part app is designed to provide users a way to manage local events around town, or shindigs
-as I call them. It provides CRUD capabilities to any user, and allows them to manage the data in the
-datastore, through the API, from the UI.
-
 - _The corresponding **app** is here: (https://github.com/jburer/mysimpleapp)._
 - _The corresponding **datastore** is here: (https://github.com/jburer/mysimpledb)._
 
 ## myPurpose
 
-Designed to give me a "clean" system for explaining and applying security and
-privacy principals, I created a simple app, API, and datastore where the
-only security and privacy applied is that which is inherent in the frameworks, software,
-and services that I'm using to build the system.
+It's "concept" is to provide users a way to manage local events around town, or shindigs
+as I call them. It provides CRUD capabilities to any user, and allows them to manage the data in the
+datastore, through the API, from the UI.
 
-As I apply security and privacy, I will branch this code and explain what's being done.
+Designed to give me a "clean" system for demonstrating Security and
+Privacy, the only principles applied to the base is that which is inherent
+in the frameworks, software, and services that I'm using to build the system.
+
+As I work through the fundementals of Security and Privacy, I'll apply
+them to this app, and create different branches to give you that "before
+and after" feel.
 
 For more info on this effort check out my blog: (http://jburer.wordpress.com)
 
-_**PLEASE NOTE:** This is solely intended as a learning and education tool, and_
-_in no way represents the full responsibilities needed for a production system. In fact_
-_as designed it specifically omits certain "best practices" (e.g. input validation, test scripts, logging - all_
-_those things security and privacy folks care about) so that_
-_they can be added later to demonstrate its benefit._
+_**PLEASE NOTE:** This is solely_
+_intended as a learning and education tool, and in no way represents the_
+_full responsibilities needed for a production system. In fact it is_
+_specifically designed to omit security and privacy controls (e.g._
+_authentication, input validation, logging, etc. - **all those things security and privacy folks care about**)_
+_so that their benefits can be demonstrated._
 
 ## myAPI
 
