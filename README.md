@@ -2,12 +2,12 @@
 
 The second part of my three part app: The API.
 
-- _The corresponding **UI** is here: (https://github.com/jburer/mysimpleui)._
-- _The corresponding **datastore** is here: (https://github.com/jburer/mysimpledb)._
+- _The corresponding **UI**: (https://github.com/jburer/mysimpleui)._
+- _The corresponding **datastore**: (https://github.com/jburer/mysimpledb)._
 
 ## myPurpose
 
-It's "concept" is to provide users a way to manage local events around town, or shindigs
+Its concept is to provide users a way to manage local events around town, or shindigs
 as I call them. It provides CRUD capabilities to any user, and allows them to manage the data in the
 datastore, through the API, from the UI.
 
@@ -15,7 +15,7 @@ Designed to give me a "clean" system for demonstrating Security and
 Privacy principals, the only principals applied to the base is that which is inherent
 in the frameworks, software, and services that I'm using to build the system.
 
-As I work through the fundementals of Security and Privacy, I'll apply
+As I work through the fundamentals of Security and Privacy, I'll apply
 them to this app, and create different branches to give you that "before
 and after" feel.
 
@@ -30,7 +30,7 @@ _so that their benefits can be demonstrated._
 
 ## myAPI
 
-The `mysimpleAPI` API is an Express app and makes the `GET`, `POST`, `PUT` and `DELETE` methods available.
+The `mysimpleAPI` REST API is an Express app and makes the `GET`, `POST`, `PUT` and `DELETE` methods available.
 
 | Path            | HTTP Mehtod | Parameters                           | Response                | Purpose                               |
 | --------------- | ----------- | ------------------------------------ | ----------------------- | ------------------------------------- |
@@ -58,10 +58,12 @@ It is designed to be run inside a Docker container.
 
 ## myDockerSetup
 
-Create the `mysimplenetwork` network. _**PLEASE NOTE:** All images in this app are pre-configured to use this network by design._
-_Because `docker-compose.yml` expects this network, it is required to create it first before running docker compose._
+_**PLEASE NOTE:** All images in this app are pre-configured to use the `mysimplenetwork` network by design._
+_Because `docker-compose.yml` expects this network, it is necessary to create it first before running docker compose._
 _Creating the network first allows each image to be created independently, although you will want to start the database first_
 _before running the API as the API immediately looks for the DB._
+
+Create the `mysimplenetwork` network.
 
 <pre>
     docker network create mysimplenetwork
