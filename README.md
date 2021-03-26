@@ -1,4 +1,4 @@
-# mySimpleAPI
+# mySimpleService
 
 The second part of my three part app: The API.
 
@@ -28,9 +28,9 @@ _specifically designed to omit security and privacy controls (e.g._
 _authentication, input validation, logging, etc. - **all those things security and privacy folks care about**)_
 _so that their benefits can be demonstrated._
 
-## myAPI
+## myService
 
-The `mysimpleAPI` REST API is an Express app and makes the `GET`, `POST`, `PUT` and `DELETE` methods available.
+The `mysimpleService` is an Express app and makes the REST `GET`, `POST`, `PUT` and `DELETE` methods available.
 
 | Path            | HTTP Mehtod | Parameters                           | Response                | Purpose                               |
 | --------------- | ----------- | ------------------------------------ | ----------------------- | ------------------------------------- |
@@ -50,7 +50,7 @@ The API is exposed on port `:3100`.
 
 ## myArchitecture
 
-This is pretty straightforward API that sits independently from the UI and datastore.
+This is pretty straightforward Service that sits independently from the UI and datastore.
 
 It is designed to be run inside a Docker container.
 
