@@ -1,15 +1,59 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
 const config = require("./config.js");
 
-var app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Database
+const MongoClient = require("mongodb").MongoClient;
+const ObjectId = require("mongodb").ObjectID;
 var urlString = config.client.mongodb.defaultUri;
 var databaseString = config.client.mongodb.defaultDatabase;
 var collectionString = config.client.mongodb.defaultCollection;
+
+// Mongoose Model
+let Application = require("./model/applications");
+
+let msg = new Application({
+  apikey: "123abc"
+});
+
+msg
+  .save()
+  .then(doc => {
+    console.log(doc);
+  })
+  .catch(err => {
+    console.error("Hit an error:\n" + err);
+  });
+
+// Api-Key Authentication
+const passport = require("passport");
+const HeaderAPIKeyStrategy = require("passport-headerapikey")
+  .HeaderAPIKeyStrategy;
+
+// Api-Key Authentication
+passport.use(
+  new HeaderAPIKeyStrategy(
+    { header: "Authorization", prefix: "Api-Key " },
+    false,
+    function (apikey, done) {
+      Application.findOne({ apikey: apikey }, function (err, user) {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false);
+        }
+        return done(null, user);
+      });
+    }
+  )
+);
+
+// Initialize app
+var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
 
 // Add Access Control Allow Origin headers
 app.use((request, response, next) => {
@@ -21,6 +65,18 @@ app.use((request, response, next) => {
   );
   next();
 });
+
+//POST Authentication test
+app.post(
+  "/api/authenticate",
+  passport.authenticate("headerapikey", {
+    session: false,
+    failureRedirect: "/api/unauthorized"
+  }),
+  function (req, res) {
+    res.json({ message: "Authenticated" });
+  }
+);
 
 // Connect to DB
 app.listen(config.expressPort, () => {
@@ -56,6 +112,7 @@ app.route("/" + collectionString).get((request, response) => {
         return response.status(500).send(error);
       } else {
         console.log("GET '/" + collectionString + "' successful!");
+        console.log(result);
         response.send(result);
       }
     });
@@ -92,7 +149,6 @@ app.route("/" + collectionString + "/count").get((request, response) => {
   );
 });
 
-//POST
 app.post("/" + collectionString, (request, response) => {
   console.log(request.body);
   collection.insertOne(request.body, (error, result) => {
@@ -122,9 +178,10 @@ app.delete("/" + collectionString + "/id/:id", (request, response) => {
 });
 
 // PUT by ID
-app.put("/" + collectionString + "/:id&:shindig", (request, response) => {
-  let idInt = parseInt(request.params.id);
+app.put("/" + collectionString + "/:shindig", (request, response) => {
+  //let idInt = parseInt(request.params.id);
   let shindigObject = JSON.parse(request.params.shindig);
+  let idInt = shindigObject["id"];
   delete shindigObject["_id"];
 
   collection.update({ id: idInt }, shindigObject, (error, result) => {
